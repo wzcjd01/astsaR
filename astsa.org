@@ -1,0 +1,189 @@
+* Time Series Analysis and Its Application with R Examples                      :Time Series: :astsa: :R: :Robert H. Shunmway: :David S. Stoffer:
+
+** preface to the second edition
++ introduction of examples based on the R package 'astsa'
++ the material has been divided into smaller chapter
++ theoretical topics put in appendices at the end of text
+
+** preface to the first editon
+to develop an appreciation for the richness and versatility of modern
+time series analysis as a tool for analyzing data, and still to
+maintain a commitment to theoretical integrity.
+
+designed to be useful as a text for coures in time series on several
+different levels and as a reference work for practitioners facing the
+analysis of time-correlated data in the physical, biological, and
+social sciences.
+
+
+** chapter 1  Characteristics of Time Series
+*** Introduction
+the obvious correlatin introduced by the sampling of adjacent points
+in time can severely restrict the applicability of the many
+conventional statistical methods traditionally dependent on the
+assumption that these adjacent observations are independent and
+identically distributed. the systematic approach by which one goes
+about answering the mathematical and statistical questions posed by
+these time correlations is commonly referred to as time series
+analysis.
+
+The first step in any time series investigation always involves
+careful scrutiny of the recorded data plotted over time. this scrutiny
+often suggests the method of analysis as well as statistics that will
+be of use in summarizing the information in the data. Before looking
+closely at the particular statistic methods, it is appropriate to
+mention that two separate, but not necessarily mutually exclusive,
+approaches to time series analysis exit, commonly identified as the
+_time domain approaches_ and the _frequency domain approaches_.
+1. time domain approach
+motivated by the presumption that correlation between the adjacent in
+the time is best explained in terms of a dependence of the current
+value on past values.
+
+modeling some future value as a parametric function of the current and
+past values.
+
+linear regressions and forecasting
+
+*ARIMA* (Box, Jenkens 1970): autoregressive iintegrated moving average:
+multivariate ARIMA, transfer function modeling
+
+the defining feature of ARIMA models is that they are _multiplicative_
+models, meaning that the observed data are assumed to result from
+products of factors involving _differential_ or _difference_ equations
+operators responding to a white noise input.
+
+_Additive_ models: /state-space model/, /Kalman filtering and smoothing/
+
+The frequency domain approach assumes the primary characteristics of
+interest in time series analyses relate to /periodic or systematic/
+/sinusoidal variations/ found naturally in most data
+
+Spectral analysis: _power spectrum_.
+
+no schism divides time domain  and frequency domain methodology. In
+many cases, the two approaches may produce similar answers for long
+series, but the comparative performance over short samples is better
+done in the time domain. 
+
+*** time series statistical models
+stocastic process: {x_t, t = 0, 1, 2, ...}
+
+realization of the stochastic process
+
+plotting the r.v. values on the ordinate, with the time scale as the
+abscissa, connect the values at adjacent time periods to reconstruct
+visually some orginal hypothetical continuous time series that might
+have produced these values as a discrete sample.
+sampling rate, aliasing, Nequist Sampling Theorem
+
+different degrees of smoothness of time series: correlated adjacent
+points.
+
+*Example 1.8 White Noise*
++ white noise :: w_t ~ wn(0, \sigma_{w}^{2})
+the designation _white_ originates from analogy wit white light and
+indicates that all possible periodic oscillations are present with
+equal strength.
+
++ white independent noise :: w_t ~ iid(0, \sigma_{w}^{2})
+
++ Gaussian white noise :: w_t ~ iid N(0, \sigma_{w}^{2})
+
+If the stochastic bahavior of all time series could be explained in
+terms of the white noise model, classical statistical methods would
+suffice.
+
+****  Two ways of introducing serial correlatino and more smoothness into time series model
+
+1. moving average
+filter(filter='convolution')
+
+2. autoregressions
+filter(filter='recursive')
+
+**** random walk with drift model
+\begin{equation}
+x_t = \delta + x_{t-1} + w_t
+
+x_t = \delta t + \sum_{j=1}^{t} w_j
+\end{equation}
+
+**** signal in noise
+underlying signal with some consistent periodic variation
+
++ SNR :: Signal-to-noise ratio
+the ratio of amplitude of the signal to \sigma_{w}: the larger the
+*SNR*, the easier it is to detect the signal.
+
+Use spectral analysis as a possible technique fore detecting regular
+or periodic signal.
+
+*Additive Models*
+$x_t = s_t + v_t$
+s_t: some unkown signal
+v_t: variation that may be white or correlated over time
+
+*** measures of dependence: autocorrelation and cross-correlation
+as is the usual in statistics, the complete description involves the
+multivariate distribution function of the jointly sampled values $$x_1,
+x_2, ..., x_n$$, whereas more economical descriptions can be had in
+terms of the mean and autocorrelation functions
+
+**** joint distribution functions of a time series:
+\begin{equation}
+F(c_1, c_2, \ldots, c_n) = P(x_{t_1} \leq c_1, x_{t_2} \leq c_2,
+\ldots, x_{t_n} \leq c_n)
+\end{equation}
+
+if the random variables are jointly normal, a particular case in which
+the multidimensional distribution function is easy would be for
+i.i.d. standard normal random variables.
+
+\begin{equation}
+F(c_1, c_2, \ldots, c_n) = \Pi_{t=1}^n\Phi(c_t)
+\end{equation}
+
+where
+\begin{equation}
+\Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^x \exp{-\frac{z^2}{2} dz
+\end{equation}
+
+
+**** mean function
++ mean functin ::
+\begin{equation}
+\mu_{xt} = E(x_t) = \int_{-\infty}{\infty} x f_t(x) dx
+\end{equation}
+
+\mu_t is a theoretical mean for the series at one particular time
+point, where the mean is taken over all possible events that could
+have produced x_t.
+
+**** autocovariance function
++ autocovariance function ::
+\begin{equation}
+\gamma_x(s,t) = E[(x_s - \mu_s)(x_t - \mu_t)]
+\end{equation}
+/for all s and t/.
+
+the autocovariance measures the /linear/ dependent between two points
+on the same series observed at different times.
+
+very smooth series exhhibit autocovariance functions that stay large
+even when the /t/ and /s/ are far apart, whereas choppy series tend to
+have autocovariance functions that are nearly zero for large
+separations.
+
++ autocovariance of gaussian white noise
+\gamma_w(s,t) = E(w_s*w_t) = \left{\sigma_w^2, s = t \\ 0, s \neq t}
+
+** chapter 2  Time Series Regression and Exploratory Data Analysis
+** chapter 3  ARIMA Models
+** chapter 4  Spectral Analysis and Filtering
+** chapter 5  Additional Time Domain Topics
+** chapter 6  State-Space Models
+** chapter 7  Statistical Methods in the Frequency Domain
+** Appendix A: Large Sample Theory
+** Appendix B: Time Domain Theory
+** Appendix C: Spectral Domain Theory
